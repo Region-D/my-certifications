@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>我的证书展示</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "Microsoft YaHei", sans-serif;
+        }
+        body {
+            background: linear-gradient(135deg, #f0f4f8, #e2eaf3);
+            padding: 20px;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 30px auto;
+            background: #fff;
+            padding: 40px;
+            border-radius: 16px;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.08);
+        }
+        .title {
+            text-align: center;
+            font-size: 32px;
+            color: #2c3e50;
+            margin-bottom: 10px;
+        }
+        .subtitle {
+            text-align: center;
+            color: #7f8c8d;
+            margin-bottom: 50px;
+        }
+        .section {
+            margin-bottom: 60px;
+        }
+        .section-title {
+            font-size: 22px;
+            color: #fff;
+            background: linear-gradient(90deg, #3498db, #2980b9);
+            padding: 12px 20px;
+            border-radius: 8px;
+            margin-bottom: 30px;
+        }
+        .cert-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+            gap: 25px;
+        }
+        .cert-item {
+            background: #fafbfc;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+            transition: 0.3s;
+            cursor: pointer;
+        }
+        .cert-item:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        }
+        .cert-img {
+            width: 100%;
+            height: 220px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #f5f5f5;
+            padding: 10px;
+        }
+        .cert-item img {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+            border-radius: 6px;
+        }
+        .cert-name {
+            text-align: center;
+            padding: 12px;
+            font-weight: bold;
+            color: #2c3e50;
+        }
+
+        /* 点击放大弹窗 */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 999;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.85);
+        }
+        .modal-content {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            max-width: 90%;
+            max-height: 90%;
+        }
+        .close {
+            position: absolute;
+            top: 20px;
+            right: 30px;
+            color: white;
+            font-size: 40px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1 class="title">我的证书展示</h1>
+    <p class="subtitle">技能 | 竞赛 | 校内荣誉 | 通用 | 其他</p>
+
+    <!-- ===================== 技能证书 ===================== -->
+    <div class="section">
+        <h2 class="section-title">技能证书</h2>
+        <div class="cert-grid">
+            <div class="cert-item" onclick="show('HCIE-AI Solution Architect.png')">
+                <div class="cert-img"><img src="HCIE-AI Solution Architect.png"></div>
+                <div class="cert-name">HCIE-AI Solution Architect</div>
+            </div>
+            <div class="cert-item" onclick="show('HCIP-AI Solution Architect.png')">
+                <div class="cert-img"><img src="HCIP-AI Solution Architect.png"></div>
+                <div class="cert-name">HCIP-AI Solution Architect</div>
+            </div>
+            <div class="cert-item" onclick="show('HCIP-AI-MindSpore Developer.png')">
+                <div class="cert-img"><img src="HCIP-AI-MindSpore Developer.png"></div>
+                <div class="cert-name">HCIP-AI-MindSpore Developer</div>
+            </div>
+            <div class="cert-item" onclick="show('HCIP-Datacom-Advanced Routing & Switching Technology.png')">
+                <div class="cert-img"><img src="HCIP-Datacom-Advanced Routing & Switching Technology.png"></div>
+                <div class="cert-name">HCIP-Datacom-Advanced Routing & Switching Technology</div>
+            </div>
+            <div class="cert-item" onclick="show('HCCDP-AI.png')">
+                <div class="cert-img"><img src="HCCDP-AI.png"></div>
+                <div class="cert-name">HCCDP-AI</div>
+            </div>
+            <div class="cert-item" onclick="show('HCCDA-AI.png')">
+                <div class="cert-img"><img src="HCCDA-AI.png"></div>
+                <div class="cert-name">HCCDA-AI</div>
+            </div>
+            <div class="cert-item" onclick="show('HCIA-Security.png')">
+                <div class="cert-img"><img src="HCIA-Security.png"></div>
+                <div class="cert-name">HCIA-Security</div>
+            </div>
+            <div class="cert-item" onclick="show('HCIA-WLAN.png')">
+                <div class="cert-img"><img src="HCIA-WLAN.png"></div>
+                <div class="cert-name">HCIA-WLAN</div>
+            </div>
+            <div class="cert-item" onclick="show('OFCA-OpenHarmony认证.png')">
+                <div class="cert-img"><img src="OFCA-OpenHarmony认证.png"></div>
+                <div class="cert-name">OFCA-OpenHarmony认证</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ===================== 竞赛证书 ===================== -->
+    <div class="section">
+        <h2 class="section-title">竞赛证书</h2>
+        <div class="cert-grid">
+            <div class="cert-item" onclick="show('competition1.png')">
+                <div class="cert-img"><img src="competition1.png"></div>
+                <div class="cert-name">competition1</div>
+            </div>
+            <div class="cert-item" onclick="show('competition2.png')">
+                <div class="cert-img"><img src="competition2.png"></div>
+                <div class="cert-name">competition2</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ===================== 校内荣誉证书 ===================== -->
+    <div class="section">
+        <h2 class="section-title">校内荣誉证书</h2>
+        <div class="cert-grid">
+            <div class="cert-item" onclick="show('school1.png')">
+                <div class="cert-img"><img src="school1.png"></div>
+                <div class="cert-name">school1</div>
+            </div>
+            <div class="cert-item" onclick="show('school2.png')">
+                <div class="cert-img"><img src="school2.png"></div>
+                <div class="cert-name">school2</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ===================== 通用证书 ===================== -->
+    <div class="section">
+        <h2 class="section-title">通用证书</h2>
+        <div class="cert-grid">
+            <div class="cert-item" onclick="show('计算机二级.png')">
+                <div class="cert-img"><img src="计算机二级.png"></div>
+                <div class="cert-name">计算机二级</div>
+            </div>
+            <div class="cert-item" onclick="show('英语四级.png')">
+                <div class="cert-img"><img src="英语四级.png"></div>
+                <div class="cert-name">英语四级</div>
+            </div>
+            <div class="cert-item" onclick="show('英语六级.png')">
+                <div class="cert-img"><img src="英语六级.png"></div>
+                <div class="cert-name">英语六级</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ===================== 其他证书 ===================== -->
+    <div class="section">
+        <h2 class="section-title">其他证书</h2>
+        <div class="cert-grid">
+            <div class="cert-item" onclick="show('other1.png')">
+                <div class="cert-img"><img src="other1.png"></div>
+                <div class="cert-name">other1</div>
+            </div>
+            <div class="cert-item" onclick="show('other2.png')">
+                <div class="cert-img"><img src="other2.png"></div>
+                <div class="cert-name">other2</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- 放大查看弹窗 -->
+<div id="modal" class="modal">
+    <span class="close" onclick="closeModal()">&times;</span>
+    <img class="modal-content" id="img">
+</div>
+
+<script>
+    function show(src) {
+        document.getElementById('modal').style.display = "block";
+        document.getElementById('img').src = src;
+    }
+    function closeModal() {
+        document.getElementById('modal').style.display = "none";
+    }
+    window.onclick = function(event) {
+        let modal = document.getElementById('modal');
+        if (event.target === modal) closeModal();
+    }
+</script>
+
+</body>
+</html>
