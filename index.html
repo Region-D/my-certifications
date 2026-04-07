@@ -2,89 +2,136 @@
 <html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>我的证书展示</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>我的个人荣誉与证书展示</title>
     <style>
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: "Microsoft YaHei", sans-serif;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Microsoft YaHei", sans-serif;
         }
+
+        /* 动态渐变背景 */
         body {
-            background: linear-gradient(135deg, #f0f4f8, #e2eaf3);
-            padding: 20px;
+            background: linear-gradient(-45deg, #e0c3fc, #8ec5fc, #a1c4fd, #c2e9fb);
+            background-size: 400% 400%;
+            animation: gradientBG 15s ease infinite;
+            min-height: 100vh;
+            padding: 40px 20px;
+            color: #2c3e50;
         }
+
+        @keyframes gradientBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* 主容器：毛玻璃效果 */
         .container {
             max-width: 1200px;
-            margin: 30px auto;
-            background: #fff;
-            padding: 40px;
-            border-radius: 16px;
-            box-shadow: 0 8px 30px rgba(0,0,0,0.08);
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.35);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px); /* 兼容 Safari */
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            padding: 50px;
+            border-radius: 24px;
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.15);
         }
+
         .title {
             text-align: center;
-            font-size: 32px;
-            color: #2c3e50;
-            margin-bottom: 10px;
+            font-size: 36px;
+            font-weight: 800;
+            color: #1a252f;
+            margin-bottom: 15px;
+            text-shadow: 0 2px 4px rgba(255,255,255,0.8);
         }
+
         .subtitle {
             text-align: center;
-            color: #7f8c8d;
+            color: #546e7a;
+            font-size: 16px;
             margin-bottom: 50px;
+            letter-spacing: 2px;
         }
+
         .section {
             margin-bottom: 60px;
         }
+
         .section-title {
-            font-size: 22px;
+            font-size: 24px;
             color: #fff;
-            background: linear-gradient(90deg, #3498db, #2980b9);
-            padding: 12px 20px;
-            border-radius: 8px;
+            background: rgba(41, 128, 185, 0.85);
+            backdrop-filter: blur(10px);
+            padding: 12px 24px;
+            border-radius: 12px;
             margin-bottom: 30px;
+            display: inline-block;
+            box-shadow: 0 4px 15px rgba(41, 128, 185, 0.3);
         }
+
+        /* 证书网格 */
         .cert-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-            gap: 25px;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 30px;
         }
+
+        /* 单个证书卡片：毛玻璃 + 悬浮动效 */
         .cert-item {
-            background: #fafbfc;
-            border-radius: 12px;
+            background: rgba(255, 255, 255, 0.45);
+            border: 1px solid rgba(255, 255, 255, 0.6);
+            border-radius: 16px;
             overflow: hidden;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
-            transition: 0.3s;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             cursor: pointer;
+            backdrop-filter: blur(10px);
         }
+
         .cert-item:hover {
-            transform: translateY(-6px);
-            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.15);
+            background: rgba(255, 255, 255, 0.6);
         }
+
         .cert-img {
             width: 100%;
-            height: 220px;
+            height: 200px;
             display: flex;
             align-items: center;
             justify-content: center;
-            background: #f5f5f5;
-            padding: 10px;
+            background: rgba(255, 255, 255, 0.5);
+            padding: 15px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.5);
         }
+
         .cert-item img {
             max-width: 100%;
             max-height: 100%;
             object-fit: contain;
-            border-radius: 6px;
-        }
-        .cert-name {
-            text-align: center;
-            padding: 12px;
-            font-weight: bold;
-            color: #2c3e50;
+            border-radius: 8px;
+            transition: transform 0.3s ease;
         }
 
-        /* 点击放大弹窗 */
+        .cert-item:hover img {
+            transform: scale(1.05);
+        }
+
+        .cert-name {
+            text-align: center;
+            padding: 16px;
+            font-weight: 600;
+            color: #2c3e50;
+            font-size: 15px;
+            line-height: 1.4;
+        }
+
+        /* 弹窗背景：深色毛玻璃 */
         .modal {
             display: none;
             position: fixed;
@@ -93,158 +140,240 @@
             top: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0,0,0,0.85);
+            background: rgba(0, 0, 0, 0.6);
+            backdrop-filter: blur(15px); /* 背景动态模糊 */
+            -webkit-backdrop-filter: blur(15px);
+            opacity: 0;
+            transition: opacity 0.3s ease;
         }
+
+        /* 弹窗图片：加入缩放动画 */
         .modal-content {
             position: absolute;
             top: 50%;
             left: 50%;
-            transform: translate(-50%, -50%);
+            transform: translate(-50%, -50%) scale(0.8);
             max-width: 90%;
-            max-height: 90%;
+            max-height: 85%;
+            border-radius: 12px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.5);
+            transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
+
+        /* 激活状态的动画类 */
+        .modal.show {
+            opacity: 1;
+        }
+        .modal.show .modal-content {
+            transform: translate(-50%, -50%) scale(1);
+        }
+
         .close {
             position: absolute;
-            top: 20px;
-            right: 30px;
-            color: white;
-            font-size: 40px;
+            top: 25px;
+            right: 40px;
+            color: #fff;
+            font-size: 45px;
+            font-weight: lighter;
             cursor: pointer;
+            transition: color 0.3s;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.3);
+        }
+
+        .close:hover {
+            color: #e74c3c;
+        }
+
+        /* ================= 移动端完美适配 ================= */
+        @media screen and (max-width: 768px) {
+            body {
+                padding: 15px;
+            }
+            .container {
+                padding: 25px 15px;
+                border-radius: 16px;
+            }
+            .title {
+                font-size: 26px;
+            }
+            .subtitle {
+                font-size: 14px;
+                margin-bottom: 30px;
+            }
+            .section-title {
+                font-size: 20px;
+                padding: 10px 18px;
+            }
+            .cert-grid {
+                /* 手机端变为单列或双列小卡片 */
+                grid-template-columns: repeat(auto-fill, minmax(100%, 1fr));
+                gap: 20px;
+            }
+            .cert-img {
+                height: 220px;
+            }
+            .close {
+                top: 15px;
+                right: 25px;
+                font-size: 35px;
+            }
         }
     </style>
 </head>
 <body>
 
 <div class="container">
-    <h1 class="title">我的证书展示</h1>
-    <p class="subtitle">技能 | 竞赛 | 校内荣誉 | 通用 | 其他</p>
+    <h1 class="title">我的成就与证书档案</h1>
+    <p class="subtitle">技能认证 | 竞赛荣誉 | 语言及通用 | 实践项目</p>
 
-    <!-- ===================== 技能证书 ===================== -->
     <div class="section">
-        <h2 class="section-title">技能证书</h2>
+        <h2 class="section-title">💼 专业技能认证 (华为系)</h2>
         <div class="cert-grid">
-            <div class="cert-item" onclick="show('HCIE-AI Solution Architect.png')">
-                <div class="cert-img"><img src="HCIE-AI Solution Architect.png"></div>
-                <div class="cert-name">HCIE-AI Solution Architect</div>
+            <div class="cert-item" onclick="showModal('HCIE-AI Solution Architect.png')">
+                <div class="cert-img"><img src="HCIE-AI Solution Architect.png" alt="HCIE-AI" loading="lazy"></div>
+                <div class="cert-name">HCIE - AI Solution Architect</div>
             </div>
-            <div class="cert-item" onclick="show('HCIP-AI Solution Architect.png')">
-                <div class="cert-img"><img src="HCIP-AI Solution Architect.png"></div>
-                <div class="cert-name">HCIP-AI Solution Architect</div>
+            <div class="cert-item" onclick="showModal('HCIP-AI Solution Architect.png')">
+                <div class="cert-img"><img src="HCIP-AI Solution Architect.png" alt="HCIP-AI" loading="lazy"></div>
+                <div class="cert-name">HCIP - AI Solution Architect</div>
             </div>
-            <div class="cert-item" onclick="show('HCIP-AI-MindSpore Developer.png')">
-                <div class="cert-img"><img src="HCIP-AI-MindSpore Developer.png"></div>
-                <div class="cert-name">HCIP-AI-MindSpore Developer</div>
+            <div class="cert-item" onclick="showModal('HCIP-AI-MindSpore Developer.png')">
+                <div class="cert-img"><img src="HCIP-AI-MindSpore Developer.png" alt="MindSpore Developer" loading="lazy"></div>
+                <div class="cert-name">HCIP - AI MindSpore Developer</div>
             </div>
-            <div class="cert-item" onclick="show('HCIP-Datacom-Advanced Routing & Switching Technology.png')">
-                <div class="cert-img"><img src="HCIP-Datacom-Advanced Routing & Switching Technology.png"></div>
-                <div class="cert-name">HCIP-Datacom-Advanced Routing & Switching Technology</div>
+            <div class="cert-item" onclick="showModal('HCIP-Datacom-Advanced Routing & Switching Technology.png')">
+                <div class="cert-img"><img src="HCIP-Datacom-Advanced Routing & Switching Technology.png" alt="Datacom" loading="lazy"></div>
+                <div class="cert-name">HCIP - Datacom Advanced Routing</div>
             </div>
-            <div class="cert-item" onclick="show('HCCDP-AI.png')">
-                <div class="cert-img"><img src="HCCDP-AI.png"></div>
-                <div class="cert-name">HCCDP-AI</div>
+            <div class="cert-item" onclick="showModal('HCCDP-AI.png')">
+                <div class="cert-img"><img src="HCCDP-AI.png" alt="HCCDP-AI" loading="lazy"></div>
+                <div class="cert-name">HCCDP - AI</div>
             </div>
-            <div class="cert-item" onclick="show('HCCDA-AI.png')">
-                <div class="cert-img"><img src="HCCDA-AI.png"></div>
-                <div class="cert-name">HCCDA-AI</div>
+            <div class="cert-item" onclick="showModal('HCCDA-AI.png')">
+                <div class="cert-img"><img src="HCCDA-AI.png" alt="HCCDA-AI" loading="lazy"></div>
+                <div class="cert-name">HCCDA - AI</div>
             </div>
-            <div class="cert-item" onclick="show('HCIA-Security.png')">
-                <div class="cert-img"><img src="HCIA-Security.png"></div>
-                <div class="cert-name">HCIA-Security</div>
+            <div class="cert-item" onclick="showModal('HCIA-Security.png')">
+                <div class="cert-img"><img src="HCIA-Security.png" alt="HCIA-Security" loading="lazy"></div>
+                <div class="cert-name">HCIA - Security</div>
             </div>
-            <div class="cert-item" onclick="show('HCIA-WLAN.png')">
-                <div class="cert-img"><img src="HCIA-WLAN.png"></div>
-                <div class="cert-name">HCIA-WLAN</div>
+            <div class="cert-item" onclick="showModal('HCIA-WLAN.png')">
+                <div class="cert-img"><img src="HCIA-WLAN.png" alt="HCIA-WLAN" loading="lazy"></div>
+                <div class="cert-name">HCIA - WLAN</div>
             </div>
-            <div class="cert-item" onclick="show('OFCA-OpenHarmony认证.png')">
-                <div class="cert-img"><img src="OFCA-OpenHarmony认证.png"></div>
-                <div class="cert-name">OFCA-OpenHarmony认证</div>
+            <div class="cert-item" onclick="showModal('OFCA-OpenHarmony认证.png')">
+                <div class="cert-img"><img src="OFCA-OpenHarmony认证.png" alt="OpenHarmony" loading="lazy"></div>
+                <div class="cert-name">OFCA - OpenHarmony认证</div>
             </div>
         </div>
     </div>
 
-    <!-- ===================== 竞赛证书 ===================== -->
     <div class="section">
-        <h2 class="section-title">竞赛证书</h2>
+        <h2 class="section-title">🏆 竞赛荣誉证书</h2>
         <div class="cert-grid">
-            <div class="cert-item" onclick="show('competition1.png')">
-                <div class="cert-img"><img src="competition1.png"></div>
-                <div class="cert-name">competition1</div>
+            <div class="cert-item" onclick="showModal('第十一届大唐杯省级一等奖.jpg')">
+                <div class="cert-img"><img src="第十一届大唐杯省级一等奖.jpg" alt="大唐杯一等奖" loading="lazy"></div>
+                <div class="cert-name">第十一届大唐杯 省级一等奖</div>
             </div>
-            <div class="cert-item" onclick="show('competition2.png')">
-                <div class="cert-img"><img src="competition2.png"></div>
-                <div class="cert-name">competition2</div>
+            <div class="cert-item" onclick="showModal('第十届华为ICT省级第二名.png')">
+                <div class="cert-img"><img src="第十届华为ICT省级第二名.png" alt="华为ICT第二名" loading="lazy"></div>
+                <div class="cert-name">第十届华为ICT大赛 省级第二名</div>
             </div>
         </div>
     </div>
 
-    <!-- ===================== 校内荣誉证书 ===================== -->
     <div class="section">
-        <h2 class="section-title">校内荣誉证书</h2>
+        <h2 class="section-title">🎓 通用技能证书</h2>
         <div class="cert-grid">
-            <div class="cert-item" onclick="show('school1.png')">
-                <div class="cert-img"><img src="school1.png"></div>
-                <div class="cert-name">school1</div>
+            <div class="cert-item" onclick="showModal('CET6.png')">
+                <div class="cert-img"><img src="CET6.png" alt="CET6" loading="lazy"></div>
+                <div class="cert-name">英语六级证书 (CET-6)</div>
             </div>
-            <div class="cert-item" onclick="show('school2.png')">
-                <div class="cert-img"><img src="school2.png"></div>
-                <div class="cert-name">school2</div>
+            <div class="cert-item" onclick="showModal('CET4.png')">
+                <div class="cert-img"><img src="CET4.png" alt="CET4" loading="lazy"></div>
+                <div class="cert-name">英语四级证书 (CET-4)</div>
+            </div>
+            <div class="cert-item" onclick="showModal('WPS计算机二级.png')">
+                <div class="cert-img"><img src="WPS计算机二级.png" alt="WPS二级" loading="lazy"></div>
+                <div class="cert-name">全国计算机等级考试 - WPS二级</div>
             </div>
         </div>
     </div>
 
-    <!-- ===================== 通用证书 ===================== -->
     <div class="section">
-        <h2 class="section-title">通用证书</h2>
+        <h2 class="section-title">🚀 实践项目与应用开发</h2>
         <div class="cert-grid">
-            <div class="cert-item" onclick="show('计算机二级.png')">
-                <div class="cert-img"><img src="计算机二级.png"></div>
-                <div class="cert-name">计算机二级</div>
+            <div class="cert-item" onclick="showModal('HarmonyOS分布式协同优化办公应用开发.png')">
+                <div class="cert-img"><img src="HarmonyOS分布式协同优化办公应用开发.png" alt="HarmonyOS应用开发" loading="lazy"></div>
+                <div class="cert-name">HarmonyOS分布式应用开发</div>
             </div>
-            <div class="cert-item" onclick="show('英语四级.png')">
-                <div class="cert-img"><img src="英语四级.png"></div>
-                <div class="cert-name">英语四级</div>
+            <div class="cert-item" onclick="showModal('ModelArts实现零售商户分群.png')">
+                <div class="cert-img"><img src="ModelArts实现零售商户分群.png" alt="ModelArts商户分群" loading="lazy"></div>
+                <div class="cert-name">ModelArts实现零售商户分群</div>
             </div>
-            <div class="cert-item" onclick="show('英语六级.png')">
-                <div class="cert-img"><img src="英语六级.png"></div>
-                <div class="cert-name">英语六级</div>
+            <div class="cert-item" onclick="showModal('ModelArts实现智能花卉识别.png')">
+                <div class="cert-img"><img src="ModelArts实现智能花卉识别.png" alt="ModelArts花卉识别" loading="lazy"></div>
+                <div class="cert-name">ModelArts实现智能花卉识别</div>
+            </div>
+            <div class="cert-item" onclick="showModal('AI智能语音识别计算器.png')">
+                <div class="cert-img"><img src="AI智能语音识别计算器.png" alt="语音识别计算器" loading="lazy"></div>
+                <div class="cert-name">AI智能语音识别计算器</div>
+            </div>
+            <div class="cert-item" onclick="showModal('华为云计算服务实践.png')">
+                <div class="cert-img"><img src="华为云计算服务实践.png" alt="云计算服务实践" loading="lazy"></div>
+                <div class="cert-name">华为云计算服务实践</div>
+            </div>
+            <div class="cert-item" onclick="showModal('智能声音识别.png')">
+                <div class="cert-img"><img src="智能声音识别.png" alt="智能声音识别" loading="lazy"></div>
+                <div class="cert-name">智能声音识别</div>
             </div>
         </div>
     </div>
 
-    <!-- ===================== 其他证书 ===================== -->
-    <div class="section">
-        <h2 class="section-title">其他证书</h2>
-        <div class="cert-grid">
-            <div class="cert-item" onclick="show('other1.png')">
-                <div class="cert-img"><img src="other1.png"></div>
-                <div class="cert-name">other1</div>
-            </div>
-            <div class="cert-item" onclick="show('other2.png')">
-                <div class="cert-img"><img src="other2.png"></div>
-                <div class="cert-name">other2</div>
-            </div>
-        </div>
-    </div>
 </div>
 
-<!-- 放大查看弹窗 -->
 <div id="modal" class="modal">
     <span class="close" onclick="closeModal()">&times;</span>
-    <img class="modal-content" id="img">
+    <img class="modal-content" id="modal-img">
 </div>
 
 <script>
-    function show(src) {
-        document.getElementById('modal').style.display = "block";
-        document.getElementById('img').src = src;
+    const modal = document.getElementById('modal');
+    const modalImg = document.getElementById('modal-img');
+
+    // 打开弹窗并触发动画
+    function showModal(src) {
+        modal.style.display = "block";
+        modalImg.src = src;
+        // 使用 setTimeout 确保 display:block 渲染后触发 CSS 过渡效果
+        setTimeout(() => {
+            modal.classList.add("show");
+        }, 10);
     }
+
+    // 关闭弹窗并触发动画
     function closeModal() {
-        document.getElementById('modal').style.display = "none";
+        modal.classList.remove("show");
+        // 等待动画结束后隐藏元素
+        setTimeout(() => {
+            modal.style.display = "none";
+            modalImg.src = "";
+        }, 300); // 300ms 与 CSS transition 时间一致
     }
+
+    // 点击弹窗空白处关闭
     window.onclick = function(event) {
-        let modal = document.getElementById('modal');
-        if (event.target === modal) closeModal();
+        if (event.target === modal) {
+            closeModal();
+        }
     }
+
+    // 支持键盘 ESC 键关闭大图
+    document.addEventListener('keydown', function(event) {
+        if (event.key === "Escape" && modal.classList.contains("show")) {
+            closeModal();
+        }
+    });
 </script>
 
 </body>
